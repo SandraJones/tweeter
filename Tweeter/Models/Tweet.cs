@@ -10,7 +10,7 @@ namespace Tweeter.Models
         public int TweetId { get; set; }
         public string Message { get; set; }
         public Twit Author { get; set; } // How do I say 'Twit User'?
-        public string ImageURL { get; set; }
+        public string ImageURL { get; set; }//hint for what I will store in database; store url not actual image
         public DateTime CreatedAt { get; set; }
         public List<Tweet> Replies { get; set; } // Self referential
     }

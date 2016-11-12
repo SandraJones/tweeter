@@ -9,7 +9,10 @@ namespace Tweeter.DAL
 {
     public class TweeterContext : ApplicationDbContext
     {
-        public virtual DbSet<Tweet> Tweets { get; set; }
-        public virtual DbSet<Twit> TweeterUsers { get; set; }
+       public virtual DbSet<Tweet> Tweets { get; set; }
+       public virtual DbSet<Twit> TweeterUsers { get; set; }//required cause 
+                                                             //entity uses DbContext to know relationships
+       
+       
     }
 }
