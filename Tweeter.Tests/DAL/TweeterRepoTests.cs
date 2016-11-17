@@ -38,6 +38,7 @@ namespace Tweeter.Tests.DAL
                     BaseUser = new ApplicationUser() { UserName = "sallym"}
                 }
             };
+           
             _tweets = new List<Tweet>
             {
                 new Tweet
@@ -84,6 +85,7 @@ namespace Tweeter.Tests.DAL
 
             mock_context.Setup(r => r.Tweets).Returns(mock_tweets.Object);
             mock_tweets.Setup(i => i.Add(It.IsAny<Tweet>())).Callback((Tweet i) => _tweets.Add(i));
+            mock_tweets.Setup(i => i.Remove(It.IsAny<Tweet>())).Callback((Tweet i) => _tweets.Remove(i));
         }
 
         [TestMethod]
@@ -145,11 +147,12 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.AreEqual(_tweets.Count, 3);
         }
-        
+        //look over Jurnell's lecture on below test
         public void EnsureRemoveTweetWorks()
         {
             //Arrange
             ConnectToDatastore();
+            //First add a tweet then remove it inside this same test
             //Act
             Assert.AreEqual(_tweets.Count, 3);
             var tweetRemoved = Repo.RemoveTweet(Tweet.Message);

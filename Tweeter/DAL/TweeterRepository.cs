@@ -45,6 +45,7 @@ namespace Tweeter.DAL
 
             return false;          
         }
+        //review Jurnell's lecture on this for another option
         public Tweet AddTweet(Tweet currentTweet)
         {
             var _tweet = Context.Tweets.Add(currentTweet);// this is kind of an abstraction of the DB a list
