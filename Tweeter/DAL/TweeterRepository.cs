@@ -43,8 +43,17 @@ namespace Tweeter.DAL
                 return true;
             }
 
-            return false;
-            
+            return false;          
+        }
+        public Tweet AddTweet(Tweet currentTweet)
+        {
+            var _tweet = Context.Tweets.Add(currentTweet);// this is kind of an abstraction of the DB a list
+            return _tweet;//when testing check for a tweetID returned 
+        }
+        public Tweet RemoveTweet()
+        {
+            Tweet _tweet = new Tweet();
+            return _tweet;//if I return the same object then I can have proof that it was removed.
         }
     }
 }

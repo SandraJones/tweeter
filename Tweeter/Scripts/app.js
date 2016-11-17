@@ -1,16 +1,25 @@
 ﻿$("#register-username").keyup(function () {
-
+    //$("form").submit(true);
     $("#username-ans").removeClass("glyphicon-ok");
     $("#username-ans").removeClass("glyphicon-remove");
     $.ajax({
         url: "/api/TwitUsername?candidate=" + $(this).val(),
         method: 'GET'
     }).success(function (response) {
+
+        if (!response.exists)
+        {
+           $("form").submit(true);
+        } 
         console.log(response.exists);
         if (!response.exists) {
+            $("#submit").attr("disabled", "disabled");
             $("#username-ans").addClass("glyphicon-ok");
         } else {
+            $("#submit").removeAttr("disabled");
             $("#username-ans").addClass("glyphicon-remove");
+            
+           // $("form").submit(false);//this cuts it off preventing an infinite loop perhaps?
         }
     }).fail(function (error) {
         console.log(error);

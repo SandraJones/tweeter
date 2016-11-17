@@ -15,7 +15,7 @@
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", autofocus = "", id = "register-username" })
             <span id="username-ans" class="glyphicon"></span>
-           <!--<form onsubmit="Register.preventDefault(); checkForDuplicateUser();">--> 
+           <!--this would make it happen all the time.<form onsubmit="Register.preventDefault(); checkForDuplicateUser();">--> 
 </div>
     </div>
     <div class="form-group">
@@ -35,7 +35,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="submit" id="submit" class="btn btn-default" value="Register" />
         </div>
     </div>
 }
