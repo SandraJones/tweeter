@@ -50,10 +50,13 @@ namespace Tweeter.DAL
             var _tweet = Context.Tweets.Add(currentTweet);// this is kind of an abstraction of the DB a list
             return _tweet;//when testing check for a tweetID returned 
         }
-        public Tweet RemoveTweet()
+        public Tweet RemoveTweet(int IdToFind)
         {
-            Tweet _tweet = new Tweet();
-            return _tweet;//if I return the same object then I can have proof that it was removed.
+            //have to find tweet with this TweetId and then remove it
+            //use a linq 
+            Tweet found_tweet = Context.Tweets.FirstOrDefault(t => t.TweetId == IdToFind);
+            var _tweet = Context.Tweets.Remove(found_tweet);
+            return found_tweet;//if I return the same object then I can have proof that it was removed.
         }
     }
 }

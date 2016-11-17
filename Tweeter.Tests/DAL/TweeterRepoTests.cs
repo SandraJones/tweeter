@@ -17,10 +17,13 @@ namespace Tweeter.Tests.DAL
         private Mock<TweeterContext> mock_context { get; set; }
         private TweeterRepository Repo { get; set; }
         private List<Twit> users { get; set; }
+        private List<Tweet> _tweets { get; set; }
+        private Mock<DbSet<Tweet>> mock_tweets { get; set;}
 
         [TestInitialize]
         public void Initialize()
         {
+            mock_tweets = new Mock<DbSet<Tweet>>();
             mock_context = new Mock<TweeterContext>();
             mock_users = new Mock<DbSet<Twit>>();
             Repo = new TweeterRepository(mock_context.Object);
@@ -34,15 +37,24 @@ namespace Tweeter.Tests.DAL
                     TwitId = 2,
                     BaseUser = new ApplicationUser() { UserName = "sallym"}
                 }
-
             };
-
+            _tweets = new List<Tweet>
+            {
+                new Tweet
+                {
+                    TweetId = 76,
+                    Author = new Twit() { TwitId = 8}
+                },
+                new Tweet {
+                    TweetId = 77,
+                    Author = new Twit() { TwitId = 9}
+                }
+            };
             /* 
              1. Install Identity into Tweeter.Tests (using statement needed)
              2. Create a mock context that uses 'UserManager' instead of 'TweeterContext'
              */
         }
-
         public void ConnectToDatastore()
         {
             var query_users = users.AsQueryable();
@@ -63,6 +75,15 @@ namespace Tweeter.Tests.DAL
             /* IF we just add a Username field to the Twit model
              * mock_context.Setup(c => c.TweeterUsers).Returns(mock_users.Object); Assuming mock_users is List<Twit>
              */
+             //mocking the tweets
+            var query_currentTweets = _tweets.AsQueryable();
+            mock_tweets.As<IQueryable<Tweet>>().Setup(w => w.Provider).Returns(query_currentTweets.Provider);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(w => w.Expression).Returns(query_currentTweets.Expression);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(w => w.ElementType).Returns(query_currentTweets.ElementType);
+            mock_tweets.As<IQueryable<Tweet>>().Setup(w => w.GetEnumerator()).Returns(query_currentTweets.GetEnumerator());
+
+            mock_context.Setup(r => r.Tweets).Returns(mock_tweets.Object);
+            mock_tweets.Setup(i => i.Add(It.IsAny<Tweet>())).Callback((Tweet i) => _tweets.Add(i));
         }
 
         [TestMethod]
@@ -110,5 +131,32 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.IsNotNull(found_twit);
         }
+        [TestMethod]
+        public void EnsureAddTweetWorks()
+        {
+            // Arrange
+            ConnectToDatastore();
+
+            // Act
+            Tweet _newTweet = new Tweet() {Message = "Tweet This" };
+            Assert.AreEqual(_tweets.Count, 2);
+            var tweetAdded = Repo.AddTweet(_newTweet);
+            
+            // Assert
+            Assert.AreEqual(_tweets.Count, 3);
+        }
+        
+        public void EnsureRemoveTweetWorks()
+        {
+            //Arrange
+            ConnectToDatastore();
+            //Act
+            Assert.AreEqual(_tweets.Count, 3);
+            var tweetRemoved = Repo.RemoveTweet(Tweet.Message);
+            //Assert
+            Assert.AreEqual
+        }
+
+
     }
 }
