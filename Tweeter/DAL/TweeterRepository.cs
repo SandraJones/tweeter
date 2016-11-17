@@ -59,5 +59,9 @@ namespace Tweeter.DAL
             var _tweet = Context.Tweets.Remove(found_tweet);
             return found_tweet;//if I return the same object then I can have proof that it was removed.
         }
+        public List<Tweet> GetTweets()
+        {
+            return Context.Tweets.ToList();
+        }
     }
 }

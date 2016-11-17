@@ -147,7 +147,8 @@ namespace Tweeter.Tests.DAL
             // Assert
             Assert.AreEqual(_tweets.Count, 3);
         }
-        //look over Jurnell's lecture on below test
+        [TestMethod]
+        //***********************look over Jurnell's lecture on below test
         public void EnsureRemoveTweetWorks()
         {
             //Arrange
@@ -159,7 +160,15 @@ namespace Tweeter.Tests.DAL
             //Assert
             Assert.AreEqual
         }
-
+        //check Jurnell's branch for this*********************************;
+        [TestMethod]
+        public void RepoEnsureICanGetTweets()
+        {
+            //Arr
+            //Connect
+            //REpo.AddTweet so that there is somethingn in the the database; 
+            Repo.AddTweet("sallym", "heyThere");
+        }
 
     }
 }
