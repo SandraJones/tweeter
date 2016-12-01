@@ -178,13 +178,14 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FollowViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TweetController.cs" />
-    <Compile Include="Controllers\TweeterController.cs" />
+    <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\TwitUsernameController.cs" />
     <Compile Include="DAL\TweeterContext.cs" />
-    <Compile Include="DAL\TweeterRepository.cs" />
+    <Compile Include="fonts\TweeterRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -194,6 +195,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Follow.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Tweet.cs" />
